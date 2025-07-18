@@ -1,0 +1,75 @@
+\documentclass{css}
+%\documentclass[english]{css}
+
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{latexsym}
+\usepackage{listings}
+\usepackage{url}
+\urlstyle{same}
+
+\def\|{\verb|}
+
+\newcommand{\cssyear}[0]{2025}
+\newcommand{\cssname}[0]{CSS 2025}
+\newcommand{\cssversion}[0]{2025/06/01}
+\newcommand{\cssemail}[0]{css2025-office@iwsec.org}
+
+\makeatletter
+\newcommand\newblock{\hskip .11em\@plus.33em\@minus.07em}
+\makeatother
+
+\begin{document}
+
+%% 本文が和文の場合，タイトル・著者名・著者所属・概要は，和文・英文共に必須．
+
+\title{広範な脆弱性情報の統合管理と履歴追跡}
+\etitle{Integrated Management and Historical Tracking of Diverse Vulnerability Information}
+
+\affiliate{FUTURE}{フューチャー株式会社\\
+Future Corporation}
+
+%% メールアドレスは省略可能だが，代表者のメールアドレスは必須．
+%% 姓名の間は半角スペースを入れること．
+
+\author{中岡 典弘}{Norihiro Nakaoka}{FUTURE}[n.nakaoka.46@future.co.jp]
+\author{篠原 俊一}{Shunichi Shinohara}{FUTURE}[s.shinohara.yx@future.co.jp]
+
+\begin{abstract}
+本研究は，脆弱性情報の収集・管理・提供における課題を解決するため，情報の履歴管理を中核とした新たな手法を提案する．
+提案手法は，一次情報源からのデータ収集，共通データ構造への変換，およびデータベース構築の三段階からなり，各工程をバージョン管理システムと連携させることで，情報の追跡性・再現性・運用効率を大幅に向上させた．
+実運用により，脆弱性情報の変更履歴を客観的事実として分析・共有できること，検知結果の完全な再現性が確保できること，ならびに運用安定性の向上を実証した．
+今後はデータサイズの最適化や差分の意味的解析，パイプラインの堅牢化などを課題とし，より信頼性の高い脆弱性管理基盤の実現を目指す．
+\end{abstract}
+
+%% キーワード (1--5単語) の記載は任意．
+
+\begin{jkeyword}
+脆弱性情報，履歴管理，再現性
+\end{jkeyword}
+
+\begin{eabstract}
+This study proposes a novel approach centered on history management to address challenges in vulnerability information collection, management, and provision.
+The proposed method consists of three stages: data collection from primary sources, conversion to a common data structure, and database construction.
+By integrating each stage with a version control system, the traceability, reproducibility, and operational efficiency of vulnerability information are significantly enhanced.
+Through practical implementation, we demonstrated that changes in vulnerability information can be objectively analyzed and shared as factual records, complete reproducibility of detection results can be ensured, and operational stability is improved.
+Future work will focus on optimizing data size, semantic analysis of differences, and hardening the pipeline to achieve a more reliable vulnerability management foundation.
+\end{eabstract}
+
+%% the following keyword part is optional and can be omitted.
+
+\begin{ekeyword}
+Vulnerability Information, History Management, Reproducibility
+\end{ekeyword}
+
+\maketitle
+
+\input{./1-introduction/intro.tex}
+\input{./2-methods/methods.tex}
+\input{./3-evaluation/evaluation.tex}
+\input{./4-discussion/discussion.tex}
+\input{./5-conclusion/conclusion.tex}
+
+\bibliographystyle{junsrt}
+\bibliography{./1-introduction/intro.bib,./3-evaluation/evaluation.bib,./5-conclusion/conclusion.bib}
+
+\end{document}
