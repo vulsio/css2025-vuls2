@@ -250,7 +250,7 @@ GitHub container registry に入っているので https://github.com/vulsio/vul
     "name": "Alpine Linux Security Fixes Database",
 ```
 
-この情報から AlmaLinux の脆弱性検知データはは
+この情報から AlmaLinux の脆弱性検知データは
 - `ghcr.io/vulsio/vuls-data-db` の `vuls-data-raw-alma-errata` タグに raw (生データに近い形)があり、
 - `ghcr.io/vulsio/vuls-data-db` の `vuls-data-extracted-alma-errata` タグに extracted (統合された構造)がある
 ことがわかる。
