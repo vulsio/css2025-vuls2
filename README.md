@@ -1,5 +1,7 @@
 # 広範な脆弱性情報の統合管理と履歴追跡 @ コンピュータセキュリティシンポジウム2025
 
+<img align="right" src="https://vuls.io/img/docs/vuls_logo.png" width="200" height="400">
+
 ## 論文 PDF
 
 https://raw.githubusercontent.com/vulsio/css2025-vuls2/main/docs/css.pdf
@@ -7,6 +9,34 @@ https://raw.githubusercontent.com/vulsio/css2025-vuls2/main/docs/css.pdf
 cf.
 - CSS 2025: https://www.iwsec.org/css/2025/
 - OSSセキュリティ技術ワークショップ(OWS) 2025: https://www.iwsec.org/ows/2025/#ows2025_program
+
+## 参考 URL
+
+実装関係
+
+- vuls-data-update
+  - https://github.com/MaineK00n/vuls-data-update
+  - raw, extracted の取得、変換ロジックや dotgit を扱うサブコマンドなど
+- vuls2
+  - https://github.com/MaineK00n/vuls2
+  - データベース関係のコマンドや検知ロジック
+
+GitHub Container registory 関係
+
+- vuls-data-db
+  - https://github.com/vulsio/vuls-data-db/pkgs/container/vuls-data-db
+  - raw, extracted の履歴管理されたデータ置き場
+- vuls-nightly-db
+  - https://github.com/vulsio/vuls-nightly-db/pkgs/container/vuls-nightly-db
+  - データベース置き場
+  - 過去バージョンは https://github.com/vulsio/vuls-nightly-db/pkgs/container/vuls-nightly-db/versions
+
+その他
+
+- VulsDB
+  - https://cve.vuls.biz/
+  - extracted データを元にした脆弱性情報を参照できるサイト
+
 
 ## 簡単な使い方
 
