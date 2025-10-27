@@ -40,7 +40,7 @@ GitHub Container registory 関係
 
 ## 簡単な使い方
 
-ここでは、論文の 3.4.1.1 節にある Red Hat 社脆弱性情報の過去履歴の追跡と、
+ここでは、論文の 3.4.1 節にある Red Hat 社脆弱性情報の過去履歴の追跡と、
 データベースから脆弱性情報のスナップショットまでのたどり方、実際のコマンド付きで説明する。
 コマンドラインツールおよびデータはすべてパブリックであり、読者は実際に試しながら読むことができる。
 
@@ -59,7 +59,7 @@ Go のインストール:
 
 これにより、 `vuls-data-update` および `vuls` バイナリがインストールされる。
 
-### 論文 「3.4.1.1 OS パッケージに対するステータスの変化」で言及した CVE-2024-0229 の情報
+### 論文「3.4.1.1 OS パッケージに対するステータスの変化」で言及した CVE-2024-0229 の情報
 
 まずは Red Hat の VEX フォーマットの脆弱性情報の取得する。
 カレントディレクトリ直下に vuls-data-extracted-redhat-vex-rhel を持ってくる:
@@ -172,6 +172,217 @@ index ff2d7030545..3ffe8f531ed 100644
 このように JSON 文字列の diff だけからこの情報にたどり着くまでには、人間が周辺を調査する必要がある。
 これをより簡単にすることは今後の課題のひとつである。
 
+### 論文「3.4.1.2 特定の CVE ID に対する情報が消滅する事例」で言及した CVE-2024-24791 の情報
+
+もし、あるCVE IDがデータソースから削除された場合、履歴では次のように確認することができる。
+
+```
+% vuls-data-update dotgit diff tree --pathspec data/2024/CVE-2024-24791.json ghcr.io/vulsio/vuls-data-db/vuls-data-extracted-redhat-vex-rhel 708ff21dc6 e4787b5085
+diff --git a/data/2024/CVE-2024-24791.json b/data/2024/CVE-2024-24791.json
+deleted file mode 100644
+index 663aedd4577..00000000000
+--- a/data/2024/CVE-2024-24791.json
++++ /dev/null
+@@ -1,4321 +0,0 @@
+-{
+-	"id": "CVE-2024-24791",
+...
+-							{
+-								"type": "version",
+-								"version": {
+-									"vulnerable": true,
+-									"fix_status": {
+-										"class": "fixed"
+-									},
+-									"package": {
+-										"type": "binary",
+-										"binary": {
+-											"name": "podman-tests",
+-											"architectures": [
+-												"aarch64",
+-												"ppc64le",
+-												"s390x",
+-												"x86_64"
+-											]
+-										}
+-									},
+-									"affected": {
+-										"type": "rpm",
+-										"range": [
+-											{
+-												"lt": "2:5.2.2-1.el9"
+-											}
+-										],
+-										"fixed": [
+-											"2:5.2.2-1.el9"
+-										]
+-									}
+-								}
+-							}
+-						]
+-					},
+-					"tag": "rhel-9-including-unpatched:e1cd6b61-06c1-e8ae-d404-0a2e70fccc55"
+-				}
+-			]
+-		}
+-	],
+-	"data_source": {
+-		"id": "redhat-vex",
+-		"raws": [
+-			"vuls-data-raw-redhat-repository-to-cpe/repository-to-cpe.json",
+-			"vuls-data-raw-redhat-vex/2024/CVE-2024-24791.json"
+-		]
+-	}
+-}
+```
+
+また、削除されたCVE IDが再度追加された場合も、引き続き追跡可能である。
+
+```
+% vuls-data-update dotgit log --pathspec data/2024/CVE-2024-24791.json ghcr.io/vulsio/vuls-data-db/vuls-data-extracted-redhat-vex-rhel/
+...
+commit 9d4f3266739277edec70a213071bb7867713cc5b
+Author: GitHub Action <action@github.com>
+Date:   Fri Aug 8 15:26:19 2025 +0000
+
+    update
+
+commit e4787b5085615f1cedeef7492ed4bf414ec949c1
+Author: GitHub Action <action@github.com>
+Date:   Fri Jul 18 03:47:59 2025 +0000
+
+    update
+
+commit 4b0894c677db2677f86da49c7218c67448e94ca9
+Author: GitHub Action <action@github.com>
+Date:   Tue Jul 15 03:27:29 2025 +0000
+
+    update
+...
+
+% vuls-data-update dotgit diff tree --pathspec data/2024/CVE-2024-24791.json ghcr.io/vulsio/vuls-data-db/vuls-data-extracted-redhat-vex-rhel e4787b5085 9d4f326673
+diff --git a/data/2024/CVE-2024-24791.json b/data/2024/CVE-2024-24791.json
+new file mode 100644
+index 00000000000..efe2972cfe2
+--- /dev/null
++++ b/data/2024/CVE-2024-24791.json
+@@ -0,0 +1,4321 @@
++{
++	"id": "CVE-2024-24791",
+
++							{
++								"type": "version",
++								"version": {
++									"vulnerable": true,
++									"fix_status": {
++										"class": "fixed"
++									},
++									"package": {
++										"type": "binary",
++										"binary": {
++											"name": "podman-tests",
++											"architectures": [
++												"aarch64",
++												"ppc64le",
++												"s390x",
++												"x86_64"
++											]
++										}
++									},
++									"affected": {
++										"type": "rpm",
++										"range": [
++											{
++												"lt": "2:5.2.2-1.el9"
++											}
++										],
++										"fixed": [
++											"2:5.2.2-1.el9"
++										]
++									}
++								}
++							}
++						]
++					},
++					"tag": "rhel-9-including-unpatched:e1cd6b61-06c1-e8ae-d404-0a2e70fccc55"
++				}
++			]
++		}
++	],
++	"data_source": {
++		"id": "redhat-vex",
++		"raws": [
++			"vuls-data-raw-redhat-repository-to-cpe/repository-to-cpe.json",
++			"vuls-data-raw-redhat-vex/2024/CVE-2024-24791.json"
++		]
++	}
++}
+```
+
+### 論文「3.4.1.3 Red Hat 10 に対する情報のみが消滅する事例」で言及した CVE-2024-43420 の情報
+
+特定のエコシステムに対する検知情報全体が削除された例を示す。
+commit: 3e8d8d3bf5 で Red Hat 10 で CVE-2024-43420 を検知する検知情報が削除されたことが、履歴から分かる。
+
+```
+% vuls-data-update dotgit diff tree --pathspec data/2024/CVE-2024-43420.json ghcr.io/vulsio/vuls-data-db/vuls-data-extracted-redhat-vex-rhel 8c5e6158b4 3e8d8d3bf5
+diff --git a/data/2024/CVE-2024-43420.json b/data/2024/CVE-2024-43420.json
+index 1e57028da92..ed3a107162e 100644
+--- a/data/2024/CVE-2024-43420.json
++++ b/data/2024/CVE-2024-43420.json
+@@ -77,13 +77,9 @@
+ 					}
+ 				],
+ 				"published": "2024-01-01T00:00:00Z",
+-				"modified": "2025-07-03T19:54:37Z"
++				"modified": "2025-07-10T04:59:46Z"
+ 			},
+ 			"segments": [
+-				{
+-					"ecosystem": "redhat:10",
+-					"tag": "rhel-10:5e2b9810-f4da-f914-b943-5f9f7f1d3bb4"
+-				},
+ 				{
+ 					"ecosystem": "redhat:6",
+ 					"tag": "rhel-6-els:56b6b192-0a7c-8e3b-ac70-cb1b87ff4f45"
+@@ -112,35 +108,6 @@
+ 		}
+ 	],
+ 	"detections": [
+-		{
+-			"ecosystem": "redhat:10",
+-			"conditions": [
+-				{
+-					"criteria": {
+-						"operator": "OR",
+-						"criterions": [
+-							{
+-								"type": "version",
+-								"version": {
+-									"vulnerable": true,
+-									"fix_status": {
+-										"class": "unfixed",
+-										"vendor": "Fix deferred"
+-									},
+-									"package": {
+-										"type": "source",
+-										"source": {
+-											"name": "microcode_ctl"
+-										}
+-									}
+-								}
+-							}
+-						]
+-					},
+-					"tag": "rhel-10:5e2b9810-f4da-f914-b943-5f9f7f1d3bb4"
+-				}
+-			]
+-		},
+ 		{
+ 			"ecosystem": "redhat:6",
+ 			"conditions": [
+```
+
 ### データベースから脆弱性情報のスナップショットまでのたどり方
 
 まずは最新版のデータベースを取得する:
@@ -188,7 +399,7 @@ index ff2d7030545..3ffe8f531ed 100644
 データベース内には、脆弱性の情報が入っている。たとえば上で見た CVE-2024-0229 の情報は以下のように参照できる:
 
 ```
-]% vuls db search vulnerability CVE-2024-0229 --dbpath ./vuls-latest.db | jq . | head -20
+% vuls db search vulnerability CVE-2024-0229 --dbpath ./vuls-latest.db | jq . | head -20
 2025/10/21 12:34:10 INFO Get Metadata
 2025/10/21 12:34:10 INFO Get Vulnerability Data queries=[CVE-2024-0229]
 {
