@@ -1,10 +1,13 @@
 # 広範な脆弱性情報の統合管理と履歴追跡 @ コンピュータセキュリティシンポジウム2025
 
-<img align="right" src="https://vuls.io/img/docs/vuls_logo.png" width="200" height="400">
+<div style="text-align:center">
+  <img src="https://vuls.io/img/docs/vuls_logo.png">
+</div>
 
-## 論文 PDF
+## 資料
 
-https://raw.githubusercontent.com/vulsio/css2025-vuls2/main/docs/css.pdf
+- 論文PDF: https://raw.githubusercontent.com/vulsio/css2025-vuls2/main/docs/css.pdf
+- 発表スライドPDF: https://raw.githubusercontent.com/vulsio/css2025-vuls2/main/slide/css.pdf
 
 cf.
 - CSS 2025: https://www.iwsec.org/css/2025/
@@ -21,7 +24,7 @@ cf.
   - https://github.com/MaineK00n/vuls2
   - データベース関係のコマンドや検知ロジック
 
-GitHub Container registory 関係
+GitHub Container Registry 関係
 
 - vuls-data-db
   - https://github.com/vulsio/vuls-data-db/pkgs/container/vuls-data-db
